@@ -42,6 +42,12 @@
 	</dependencies>
 
 	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources/</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
@@ -49,6 +55,24 @@
 			</plugin>
 		</plugins>
 	</build>
+	
+	<profiles>
+		<profile>
+			<id>local</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<activatedProperties>local</activatedProperties>	
+			</properties>
+		</profile>
+		<profile>
+			<id>openshift</id>
+			<properties>
+				<activatedProperties>openshift</activatedProperties>
+			</properties>
+		</profile>
+	</profiles>
 
 
 </project>

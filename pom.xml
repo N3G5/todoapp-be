@@ -43,12 +43,6 @@
 	</dependencies>
 
 	<build>
-		<resources>
-			<resource>
-				<directory>src/main/resources</directory>
-				<filtering>true</filtering>
-			</resource>
-		</resources>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
@@ -61,6 +55,11 @@
 			<id>local</id>
 			<properties>
 				<environment>local</environment>
+				<dbHost>localhost</dbHost>
+				<dbPort>27017</dbPort>
+				<dbName>todoapp</dbName>
+				<dbUser>mongodb</dbUser>
+				<dbPassword></dbPassword>
 			</properties>
 			<!-- <activation>
 				<activeByDefault>true</activeByDefault>
@@ -70,6 +69,11 @@
 			<id>openshift</id>
 			<properties>
 				<environment>openshift</environment>
+				<dbHost>${MONGODB_SERVICE_HOST}</dbHost>
+				<dbPort>${MONGODB_SERVICE_PORT}</dbPort>
+				<dbName>${MONGODB_DATABASE}</dbName>
+				<dbUser>${MONGODB_USER}</dbUser>
+				<dbPassword>${MONGODB_PASSWORD}</dbPassword>
 			</properties>
 		</profile>
 	</profiles>

@@ -82,7 +82,7 @@ def version, mvnCmd = "mvn -Dmaven.repo.local=/tmp/artifacts/m2 -s configuration
                     openshift.withCluster() {
                       openshift.withProject(env.DEV_PROJECT) {
                         def app = openshift.newApp("backend:latest")
-                        app.narrow("svc").expose("--hostname=http://api.todolist.datenplattform.tk");
+                        app.narrow("svc").expose();
                         
                         openshift.set("env --from=secret/mongodb dc/backend MONGODB_DATABASE=database-name, MONGODB_USER=database-user, MONGODB_PASSWORD=database-password")
 

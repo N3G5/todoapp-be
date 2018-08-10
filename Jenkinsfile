@@ -1,4 +1,4 @@
-def version, mvnCmd = "mvn -Dmaven.repo.local=/tmp/artifacts/m2 -s /tmp/artifacts/configuration/settings.xml -e -Popenshift"
+def version, mvnCmd = "mvn -Dmaven.repo.local=/tmp/artifacts/m2 -s /configuration/settings.xml -e -Popenshift"
 
           pipeline {
             agent {

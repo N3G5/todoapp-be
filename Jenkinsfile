@@ -81,10 +81,10 @@ def version, mvnCmd = "mvn -Dmaven.repo.local=/tmp/artifacts/m2 -s configuration
                   script {
                     openshift.withCluster() {
                       openshift.withProject(env.DEV_PROJECT) {
-                        def app = openshift.newApp(readFile('dcBackend.yaml'));
-                        app.narrow("svc").expose();
+                        def app = openshift.newApp("backend:latest")
+                        app.narrow("svc").expose("--hostname=http://api.todolist.datenplattform.tk");
                         
-                        openshift.set("");
+                        openshift.set("env --from=secret/mongodb dc/backend MONGODB_DATABASE=database-name, MONGODB_USER=database-user, MONGODB_PASSWORD=database-password")
 
                         openshift.set("probe dc/backend --readiness --get-url=http://:8080/ws/demo/healthcheck --initial-delay-seconds=30 --failure-threshold=10 --period-seconds=10")
                         openshift.set("probe dc/backend --liveness  --get-url=http://:8080/ws/demo/healthcheck --initial-delay-seconds=180 --failure-threshold=10 --period-seconds=10")

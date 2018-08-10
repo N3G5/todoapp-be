@@ -71,9 +71,9 @@
 				<environment>openshift</environment>
 				<dbHost>${MONGODB_SERVICE_HOST}</dbHost>
 				<dbPort>${MONGODB_SERVICE_PORT}</dbPort>
-				<dbName>${MONGODB_DATABASE}</dbName>
-				<dbUser>${MONGODB_USER}</dbUser>
-				<dbPassword>${MONGODB_PASSWORD}</dbPassword>
+				<dbName>${DATABASE_NAME}</dbName>
+				<dbUser>${DATABASE_USER}</dbUser>
+				<dbPassword>${DATABASE_PASSWORD}</dbPassword>
 			</properties>
 		</profile>
 		<profile>

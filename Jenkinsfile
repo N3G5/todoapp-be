@@ -55,6 +55,7 @@ def version, mvnCmd = "mvn -Dmaven.repo.local=/tmp/artifacts/m2 -s configuration
               }
               stage('Build Image') {
                 steps {
+                  sh "rm -rf oc-build && mkdir -p oc-build/deployments"
                   sh "cp target/*.jar oc-build/deployments/"
                   
                   script {

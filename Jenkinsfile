@@ -84,7 +84,7 @@ def version, mvnCmd = "mvn -Dmaven.repo.local=/tmp/artifacts/m2 -s configuration
                         def app = openshift.newApp("backend:latest")
                         app.narrow("svc").expose();
                         
-                        openshift.set("env", "dc/backend", "--from=secrets/mongodb  MONGODB_DATABASE=database-name, MONGODB_USER=database-user, MONGODB_PASSWORD=database-password")
+                        openshift.set("env", "dc/backend", "--from=secrets/mongodb")
 
                         openshift.set("probe dc/backend --readiness --get-url=http://:8080/ws/demo/healthcheck --initial-delay-seconds=30 --failure-threshold=10 --period-seconds=10")
                         openshift.set("probe dc/backend --liveness  --get-url=http://:8080/ws/demo/healthcheck --initial-delay-seconds=180 --failure-threshold=10 --period-seconds=10")

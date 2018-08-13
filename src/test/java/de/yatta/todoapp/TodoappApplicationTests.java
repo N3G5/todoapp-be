@@ -18,7 +18,6 @@ import de.yatta.todoapp.repositories.TodoRepository;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@ActiveProfiles("test")
 public class TodoappApplicationTests {
 	
 	@Autowired TodoRepository todoRepo;

@@ -22,7 +22,7 @@ import de.yatta.todoapp.repositories.TodoRepository;
 
 @RunWith(SpringRunner.class)
 @DataMongoTest
-@TestPropertySource("spring.data.mongodb.port=27107")
+@TestPropertySource("../../../../resources/application.test.properties")
 public class TodoappApplicationTests {
 	
 	@Autowired TodoRepository todoRepo;

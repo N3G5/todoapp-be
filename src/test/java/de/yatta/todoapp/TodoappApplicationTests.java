@@ -11,16 +11,18 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import de.yatta.todoapp.controller.TodoController;
 import de.yatta.todoapp.model.Todo;
 import de.yatta.todoapp.repositories.TodoRepository;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
-@ActiveProfiles("test")
+@RunWith(SpringJUnit4ClassRunner.class)
+@SpringBootTest(classes = {ServerConfigWithMockedMongo.class})
 @ContextConfiguration(classes = MockedMongoConfig.class)
+@TestPropertySource(properties = { "spring.data.mongodb.database=todoapp", "spring.data.mongodb.host=localhost", "spring.data.mongodb.port=27017", "spring.data.mongodb.username=mongodb", "spring.data.mongodb.password=secret" })
 public class TodoappApplicationTests {
 	
 	@Autowired TodoRepository todoRepo;

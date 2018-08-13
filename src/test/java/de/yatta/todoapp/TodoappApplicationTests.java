@@ -24,6 +24,7 @@ import de.yatta.todoapp.repositories.TodoRepository;
 @DataMongoTest
 @TestPropertySource("classpath:application.test.properties")
 @ActiveProfiles("test")
+@ContextConfiguration(classes = TodoappApplication.class)
 public class TodoappApplicationTests {
 	
 	@Autowired TodoRepository todoRepo;

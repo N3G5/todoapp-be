@@ -1,5 +1,6 @@
 package de.yatta.todoapp;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 
@@ -11,17 +12,29 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import de.yatta.todoapp.controller.TodoController;
+import de.yatta.todoapp.model.Todo;
+import de.yatta.todoapp.repositories.TodoRepository;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class TodoappApplicationTests {
+	
+	@Autowired TodoRepository todoRepo;
 	
 	@Autowired
 	private TodoController controller;
 	
 	@Test
 	public void contextLoads() {
-		assertNotNull(controller);;
+		assertNotNull(controller);
+	}
+	
+	@Test
+	public void testMethod() {
+		Todo todo = todoRepo.save(new Todo("First todo"));
+		Todo foundTodo = todoRepo.findById(todo.getId()).get();
+		assertNotNull(foundTodo);
+		assertEquals(todo.getTitle(), foundTodo.getTitle());
 	}
 	
 	

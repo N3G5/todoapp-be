@@ -21,13 +21,13 @@ def version, mvnCmd = "mvn -Dmaven.repo.local=/tmp/artifacts/m2 -s configuration
 //                  step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])
 //                }
 //              }
-//              stage('Code Analysis') {
-//                steps {
-//                  script {
-//                    sh "${mvnCmd} sonar:sonar -Dsonar.host.url=http://sonarqube:9000 -DskipTests=true"
-//                  }
-//                }
-//              }
+              stage('Code Analysis') {
+                steps {
+                  script {
+                    sh "${mvnCmd} sonar:sonar -Dsonar.host.url=http://sonarqube:9000 -DskipTests=true"
+                  }
+                }
+              }
               stage('Archive App') {
                 steps {
                   sh "${mvnCmd} deploy -DskipTests=true -P nexus3"

@@ -5,6 +5,26 @@ def version, mvnCmd = "mvn -Dmaven.repo.local=/tmp/artifacts/m2 -s configuration
               label 'maven'
             }
             stages {
+           	  stage('Setup MongoDB') {
+              	when {
+                  expression {
+                    openshift.withCluster() {
+                      openshift.withProject(env.DEV_PROJECT) {
+                        return !openshift.selector("dc", "mongodb").exists();
+                      }
+                    }
+                  }
+                }
+                steps {
+           			openshift.withCluster() {
+           			    openshift.withProject(env.DEV_PROJECT) {
+           			        def mongo = openshift.newApp("mongodb-persistent-template", "-p MONGODB_USER=mongo", "-p MONGODB_PASSWORD=secret", "-p MONGODB_DATABASE=todoapp")
+                        	openshift.selector('svc', 'mongodb').expose()
+           			    }
+           			}
+                }
+              }
+
               stage('Build App') {
                 steps {
                   git branch: 'master', url: 'http://gogs:3000/gogs/todoapp-be.git'

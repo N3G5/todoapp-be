@@ -16,12 +16,14 @@ def version, mvnCmd = "mvn -Dmaven.repo.local=/tmp/artifacts/m2 -s configuration
                   }
                 }
                 steps {
-           			openshift.withCluster() {
-           			    openshift.withProject(env.DEV_PROJECT) {
-           			        def mongo = openshift.newApp("mongodb-persistent-template", "-p MONGODB_USER=mongo", "-p MONGODB_PASSWORD=secret", "-p MONGODB_DATABASE=todoapp")
-                        	openshift.selector('svc', 'mongodb').expose()
-           			    }
-           			}
+	                script {
+	           			openshift.withCluster() {
+	           			    openshift.withProject(env.DEV_PROJECT) {
+	           			        def mongo = openshift.newApp("mongodb-persistent-template", "-p MONGODB_USER=mongo", "-p MONGODB_PASSWORD=secret", "-p MONGODB_DATABASE=todoapp")
+	                        	openshift.selector('svc', 'mongodb').expose()
+	           			    }
+	           			}
+	                }
                 }
               }
 

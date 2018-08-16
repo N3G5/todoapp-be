@@ -22,6 +22,8 @@ public class Todo {
 	private Boolean completed = false;
 
 	private Date createdAt = new Date();
+	
+	private Priority todoPrio = Priority.LOW;
 
 	public Todo() {
 		super();
@@ -66,5 +68,13 @@ public class Todo {
 	@Override
 	public String toString() {
 		return String.format("Todo[id=%s, title='%s', completed='%s']", id, title, completed);
+	}
+
+	public void setPriority(Priority prio) {
+//		 this.todoPrio = prio;
+	}
+
+	public Priority getPriority() {
+		return todoPrio;
 	}
 }

@@ -71,7 +71,7 @@ public class Todo {
 	}
 
 	public void setPriority(Priority prio) {
-		 this.todoPrio = prio;
+		 this.todoPrio = Priority.MEDIUM;
 	}
 
 	public Priority getPriority() {

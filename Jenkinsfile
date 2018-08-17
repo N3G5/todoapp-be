@@ -42,7 +42,8 @@ def version, mvnCmd = "mvn -Dmaven.repo.local=/tmp/artifacts/m2 -s configuration
                    stage('Test') {
 		                steps {
 		                  sh "${mvnCmd} test"
-		                  step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])
+		                  // step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])
+		                  
 		                }
           			}  
               	     stage('Code Analysis') {
@@ -138,4 +139,9 @@ def version, mvnCmd = "mvn -Dmaven.repo.local=/tmp/artifacts/m2 -s configuration
                 }
               }
             }
+            post {
+		        always {		            
+		            junit 'target/surefire-reports/*.xml'
+	       		}
+    		}
           }

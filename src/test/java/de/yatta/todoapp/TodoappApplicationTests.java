@@ -47,8 +47,8 @@ public class TodoappApplicationTests {
 	public void testPriority() {
 		Todo todo = new Todo("First todo");
 		assertEquals("First todo", todo.getTitle());
-		todo.setPriority(Priority.HIGH);
-		assertEquals(Priority.HIGH, todo.getPriority());
+		todo.setPriority(Priority.MEDIUM);
+		assertEquals(Priority.MEDIUM, todo.getPriority());
 	}
 
 	

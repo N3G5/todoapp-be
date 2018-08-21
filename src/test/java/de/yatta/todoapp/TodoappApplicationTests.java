@@ -13,7 +13,6 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import de.yatta.todoapp.controller.TodoController;
-import de.yatta.todoapp.model.Priority;
 import de.yatta.todoapp.model.Todo;
 import de.yatta.todoapp.repositories.TodoRepository;
 
@@ -43,12 +42,4 @@ public class TodoappApplicationTests {
 		assertEquals(todo.getTitle(), foundTodo.getTitle());
 	}
 	
-	@Test
-	public void testPriority() {
-		Todo todo = new Todo("First todo");
-		assertEquals("First todo", todo.getTitle());
-		todo.setPriority(Priority.HIGH);
-		assertEquals(Priority.HIGH, todo.getPriority());
-	}
-
 }

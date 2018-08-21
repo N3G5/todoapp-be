@@ -23,8 +23,6 @@ public class Todo {
 
 	private Date createdAt = new Date();
 	
-	private Priority todoPrio = Priority.LOW;
-
 	public Todo() {
 		super();
 	}
@@ -70,11 +68,4 @@ public class Todo {
 		return String.format("Todo[id=%s, title='%s', completed='%s']", id, title, completed);
 	}
 
-	public void setPriority(Priority prio) {
-		 this.todoPrio = Priority.MEDIUM;
-	}
-
-	public Priority getPriority() {
-		return todoPrio;
-	}
 }

@@ -70,7 +70,7 @@ public class Todo {
 	}
 
 	public void setPriority(Priority todoPrio) {
-		this.priority = Priority.HIGH;
+		this.priority = todoPrio;
 	}
 
 	@Override

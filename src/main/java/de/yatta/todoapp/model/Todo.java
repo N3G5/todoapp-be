@@ -23,6 +23,8 @@ public class Todo {
 
 	private Date createdAt = new Date();
 	
+	private Priority priority = Priority.LOW;
+
 	public Todo() {
 		super();
 	}
@@ -61,6 +63,14 @@ public class Todo {
 
 	public void setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
+	}
+	
+	public Priority getPriority() {
+		return priority;
+	}
+
+	public void setPriority(Priority todoPrio) {
+		this.priority = Priority.HIGH;
 	}
 
 	@Override

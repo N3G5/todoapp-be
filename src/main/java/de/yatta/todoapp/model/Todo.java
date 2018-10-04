@@ -21,7 +21,9 @@ public class Todo {
 
 	private Boolean completed = false;
 
-	private Date createdAt = new Date();
+	private Date createdAt; // 2a
+	
+	private int ranking; // 2a
 	
 	public Todo() {
 		super();
@@ -61,6 +63,16 @@ public class Todo {
 
 	public void setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
+	}
+	
+	// 2a
+	public int getRanking() {
+		return this.ranking;
+	}
+	
+	// 2a
+	public void setRanking(int ranking) {
+		this.ranking = ranking;
 	}
 
 	@Override

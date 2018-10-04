@@ -23,6 +23,8 @@ public class Todo {
 
 	private Date createdAt; // 2a
 	
+	private Priority priority; // 1a
+	
 	private int ranking; // 2a
 	
 	public Todo() {
@@ -75,6 +77,16 @@ public class Todo {
 		this.ranking = ranking;
 	}
 
+	// 1a
+	public Priority getPriority() {
+		return priority;
+	}
+	
+	// 1a
+ 	public void setPriority(Priority todoPrio) {
+		this.priority = todoPrio;
+	}
+ 	
 	@Override
 	public String toString() {
 		return String.format("Todo[id=%s, title='%s', completed='%s']", id, title, completed);

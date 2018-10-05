@@ -3,6 +3,8 @@ package de.yatta.todoapp;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +51,55 @@ public class TodoappApplicationTests {
 		assertEquals("First todo", todo.getTitle());
 		todo.setPriority(Priority.MEDIUM);
 		assertEquals(Priority.MEDIUM, todo.getPriority());
+	}
+	
+	@Test
+	public void testChangeRanking() {
+		Todo todo = new Todo("First");
+		todo.setRanking(2);
+		assertEquals(2, todo.getRanking());
+	}
+	
+	@Test
+	public void testMoveTodoUp() {
+		todoRepo.deleteAll();
+		controller.createTodo(new Todo("Bottom"));
+		controller.createTodo(new Todo("Top"));
+		/* Index	Title
+		 * 0		Top
+		 * 1		Bottom
+		 */
+		List<Todo> todos = controller.getAllTodos();
+		// move "Bottom" one up
+		controller.moveTodoUp(todos.get(1).getId(), todos.get(1));
+		/* Index	Title
+		 * 0		Bottom
+		 * 1		Top
+		 */
+		todos = controller.getAllTodos();
+		assertEquals("Bottom", todos.get(0).getTitle());
+		assertEquals("Top", todos.get(1).getTitle());		
+	}
+
+	@Test
+	public void testMoveTodoDown() {
+		todoRepo.deleteAll();
+		controller.createTodo(new Todo("Bottom"));
+		controller.createTodo(new Todo("Top"));
+		/* Index	Title
+		 * 0		Top
+		 * 1		Bottom
+		 */
+		List<Todo> todos = controller.getAllTodos();
+		// move "Top" one down
+		controller.moveTodoDown(todos.get(0).getId(), todos.get(0));
+		/* Index	Title
+		 * 0		Bottom
+		 * 1		Top
+		 */
+		todos = controller.getAllTodos();
+		assertEquals("Bottom", todos.get(0).getTitle());
+		assertEquals("Top", todos.get(1).getTitle());		
 	}
 	
 }

@@ -1,10 +1,13 @@
 package de.yatta.todoapp.model;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -26,6 +29,11 @@ public class Todo {
 	private Priority priority; // 1a
 	
 	private int ranking; // 2a
+		
+	private String upperTask;
+	
+	@Transient
+	private List<Todo> childs; // 3a
 	
 	public Todo() {
 		super();
@@ -86,6 +94,29 @@ public class Todo {
  	public void setPriority(Priority todoPrio) {
 		this.priority = todoPrio;
 	}
+	
+	// 3a
+	public String getUpperTask() {
+		return this.upperTask;
+	}
+	
+	// 3a
+ 	public void setUpperTask(String upperTask) {
+		this.upperTask = upperTask;
+	}
+
+	// 3a
+	public List<Todo> getChilds() {
+		return this.childs;
+	}
+	
+	// 3a
+ 	public void addChild(Todo child) {
+		if (this.childs == null)
+			this.childs = new ArrayList<Todo>();
+ 		this.childs.add(child);
+	}
+ 	
  	
 	@Override
 	public String toString() {

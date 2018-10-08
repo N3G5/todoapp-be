@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import de.yatta.todoapp.model.Todo;
 import de.yatta.todoapp.repositories.TodoRepository;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -25,7 +26,24 @@ public class TodoController {
     public List<Todo> getAllTodos() {
     	// 2a
         Sort sortByRankingAsc = new Sort(Sort.Direction.ASC, "ranking");
-        return todoRepository.findAll(sortByRankingAsc);
+        List<Todo> todos = todoRepository.findAll(sortByRankingAsc);
+        // split todos into parents and childs
+        List<Todo> childTodos = new ArrayList<Todo>();
+        for (int p = todos.size() - 1; p >= 0; p--) {
+        	if (todos.get(p).getUpperTask() != null) {
+        		childTodos.add(todos.get(p));
+        		todos.remove(p);
+        	}     	
+        }
+        // add all todos with a parent to the child array of the parent
+        for (int c = childTodos.size() - 1; c >= 0; c--) {
+        	for (int p = todos.size() - 1; p >= 0; p--) {	
+        		if (todos.get(p).getId().equals(childTodos.get(c).getUpperTask())) {
+        			todos.get(p).addChild(childTodos.get(c));
+        		}
+        	}
+        }
+        return todos;
     }
 
     @PostMapping("/todos")
@@ -66,6 +84,7 @@ public class TodoController {
     	return todoRepository.findById(id)
                 .map(todo -> {
                     todoRepository.deleteById(id);
+                    // TODO: check for childs of this todo and delete them
                     // update all rankings for other todos
                     Sort sortByRankingAsc = new Sort(Sort.Direction.ASC, "ranking");
                     List<Todo> todos = todoRepository.findAll(sortByRankingAsc);

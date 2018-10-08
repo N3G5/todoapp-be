@@ -24,10 +24,6 @@ public class TodoController {
     @GetMapping("/todos")
     public List<Todo> getAllTodos() {
     	// 2a
-    	/*
-    	Sort sortByCreatedAtDesc = new Sort(Sort.Direction.DESC, "createdAt");
-        todoRepository.findAll(sortByCreatedAtDesc);
-        */
         Sort sortByRankingAsc = new Sort(Sort.Direction.ASC, "ranking");
         return todoRepository.findAll(sortByRankingAsc);
     }
@@ -67,9 +63,18 @@ public class TodoController {
 
     @DeleteMapping(value="/todos/{id}")
     public ResponseEntity<?> deleteTodo(@PathVariable("id") String id) {
-        return todoRepository.findById(id)
+    	return todoRepository.findById(id)
                 .map(todo -> {
                     todoRepository.deleteById(id);
+                    // update all rankings for other todos
+                    Sort sortByRankingAsc = new Sort(Sort.Direction.ASC, "ranking");
+                    List<Todo> todos = todoRepository.findAll(sortByRankingAsc);
+                    int rank = 0;
+                    for(int i = 0; i < todos.size(); i++) {
+                    	todos.get(i).setRanking(rank);
+                    	todoRepository.save(todos.get(i));
+                    	rank++;
+                    }                    
                     return ResponseEntity.ok().build();
                 }).orElse(ResponseEntity.notFound().build());
     }

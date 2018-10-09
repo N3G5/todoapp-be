@@ -84,10 +84,16 @@ public class TodoController {
     	return todoRepository.findById(id)
                 .map(todo -> {
                     todoRepository.deleteById(id);
-                    // TODO: check for childs of this todo and delete them
+                    // check for childs of this todo and delete them
+                    List<Todo> todos = todoRepository.findAll();
+                    for(int i = 0; i < todos.size(); i++) {
+                    	if (todos.get(i).getUpperTask().equals(id)) {
+                    		todoRepository.delete(todos.get(i));	
+                    	}
+                    }
                     // update all rankings for other todos
                     Sort sortByRankingAsc = new Sort(Sort.Direction.ASC, "ranking");
-                    List<Todo> todos = todoRepository.findAll(sortByRankingAsc);
+                    todos = todoRepository.findAll(sortByRankingAsc);
                     int rank = 0;
                     for(int i = 0; i < todos.size(); i++) {
                     	todos.get(i).setRanking(rank);

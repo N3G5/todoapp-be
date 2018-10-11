@@ -28,7 +28,7 @@ public class Todo {
 	
 	private Priority priority; // 1a
 	
-	private ArrayList<Integer> ranking; // 2a
+	private ArrayList<Integer> ranking = new ArrayList<Integer>(); // 2a
 		
 	private String upperTask;
 	

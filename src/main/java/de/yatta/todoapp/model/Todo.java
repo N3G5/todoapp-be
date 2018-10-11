@@ -28,7 +28,7 @@ public class Todo {
 	
 	private Priority priority; // 1a
 	
-	private int ranking; // 2a
+	private ArrayList<Integer> ranking; // 2a
 		
 	private String upperTask;
 	
@@ -76,12 +76,12 @@ public class Todo {
 	}
 	
 	// 2a
-	public int getRanking() {
+	public ArrayList<Integer> getRanking() {
 		return this.ranking;
 	}
 	
 	// 2a
-	public void setRanking(int ranking) {
+	public void setRanking(ArrayList<Integer> ranking) {
 		this.ranking = ranking;
 	}
 
@@ -115,6 +115,14 @@ public class Todo {
 		if (this.childs == null)
 			this.childs = new ArrayList<Todo>();
  		this.childs.add(child);
+ 		// after child is added, sort the list
+ 		this.childs.sort((a, b) -> {
+        	if (a.getRanking().get(a.getRanking().size() - 1) < b.getRanking().get(a.getRanking().size() - 1)) {
+        		return -1;	
+        	} else {
+        		return 1;
+        	}        	
+        });
 	}
  	
  	

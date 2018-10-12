@@ -3,6 +3,7 @@ package de.yatta.todoapp;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
@@ -56,8 +57,8 @@ public class TodoappApplicationTests {
 	@Test
 	public void testChangeRanking() {
 		Todo todo = new Todo("First");
-		todo.setRanking(2);
-		assertEquals(2, todo.getRanking());
+		todo.getRanking().add(2);
+		assertEquals(new Integer(2), todo.getRanking().get(0));
 	}
 	
 	@Test
@@ -69,14 +70,14 @@ public class TodoappApplicationTests {
 		 * 0		Top
 		 * 1		Bottom
 		 */
-		List<Todo> todos = controller.getAllTodos();
+		List<Todo> todos = controller.getAllTodos().getBody();
 		// move "Bottom" one up
 		controller.moveTodoUp(todos.get(1).getId(), todos.get(1));
 		/* Index	Title
 		 * 0		Bottom
 		 * 1		Top
 		 */
-		todos = controller.getAllTodos();
+		todos = controller.getAllTodos().getBody();
 		assertEquals("Bottom", todos.get(0).getTitle());
 		assertEquals("Top", todos.get(1).getTitle());		
 	}
@@ -90,14 +91,14 @@ public class TodoappApplicationTests {
 		 * 0		Top
 		 * 1		Bottom
 		 */
-		List<Todo> todos = controller.getAllTodos();
+		List<Todo> todos = controller.getAllTodos().getBody();
 		// move "Top" one down
 		controller.moveTodoDown(todos.get(0).getId(), todos.get(0));
 		/* Index	Title
 		 * 0		Bottom
 		 * 1		Top
 		 */
-		todos = controller.getAllTodos();
+		todos = controller.getAllTodos().getBody();
 		assertEquals("Bottom", todos.get(0).getTitle());
 		assertEquals("Top", todos.get(1).getTitle());		
 	}
